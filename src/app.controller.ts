@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PrismaService } from './database/prisma.service';
 import { CreateTeamMemberBody } from './validators/create-team-member-body';
 import { RocketMembersRepository } from './repositories/rocketseat-member-repository';
 
