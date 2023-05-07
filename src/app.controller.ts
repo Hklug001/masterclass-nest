@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PrismaService } from './database/prisma.service';
 import { CreateTeamMemberBody } from './validators/create-team-member-body';
+import { RocketMembersRepository } from './repositories/rocketseat-member-repository';
 
 @Controller()
 export class AppController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private rocketMemberRepository: RocketMembersRepository) {}
 
   @Get('hello')
   getHello() {
@@ -15,13 +16,14 @@ export class AppController {
   async postMember(@Body() body: CreateTeamMemberBody) {
     const { name, function: memberFunction } = body;
 
-    const member = await this.prisma.rocketTeamMember.create({
-      data: {
-        name,
-        function: memberFunction,
-      },
-    });
+    await this.rocketMemberRepository.create(name, memberFunction);
 
-    return member;
+    // const member = await this.prisma.rocketTeamMember.create({
+    //   data: {
+    //     name,
+    //     function: memberFunction,
+    //   },
+    // });
+    // return member;
   }
 }
